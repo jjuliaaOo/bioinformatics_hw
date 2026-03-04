@@ -1,0 +1,249 @@
+    1  whoami
+    2  ls
+    3  jdk
+    4  dojfps
+    5  jnkvdkjfvndfvfkdbj
+    6  kjnkjneivurnieuvn
+    7  cd Downloads
+    8  cd Загрузки
+    9  ls
+   10  ls ../
+   11  ls ../../
+   12  ls ../../../
+   13  mkdir bioinfo 26
+   14  pwd
+   15  ls
+   16  cd /mnt/c/Users/Julia/Desktop
+   17  ls /mnt/c/Users
+   18  cd "/mnt/c/Users/trety/Desktop"
+   19  cd "/mnt/c/Users/trety/Рабочий стол"
+   20  cd "/mnt/c/Users/trety/Onedrive/Рабочий стол"
+   21  mkdir bioinf_26
+   22  cd "/mnt/c/Users/trety/Onedrive/Рабочий стол/bioinf_26"
+   23  ls "/mnt/c/Users/trety/Onedrive"
+   24  ls "/mnt/c/Users/trety/Onedrive/Dekstop"
+   25  ls "/mnt/c/Users/trety/Onedrive/Рабочий стол"
+   26  pwd
+   27  ls
+   28  ls <Рабочий стол>
+   29  ls Рабочий стол
+   30  ls "Рабочий стол"
+   31  cd ..
+   32  ls
+   33  cd ..
+   34  cd -
+   35  ls
+   36  cd плакаты
+   37  ls
+   38  ls -l
+   39  ls -a
+   40  cd ..
+   41  cd/
+   42  cd /
+   43  cd ~
+   44  pwd
+   45  explorer.exe
+   46  explorer.exe .
+   47  echo “some text”
+   48  mkdir bioinf_26
+   49  explorer.exe .
+   50  cd bioinf_26
+   51  pwd
+   52  man mkdir
+   53  touch example.txt
+   54  cp example.txt example2.txt
+   55  echo "я люблю лёшу" example.txt
+   56  cat example.txt
+   57  echo "я люблю лёшу" > example.txt
+   58  cat example.txt
+   59  wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+   60  bash Miniconda3-latest-Linux-x86_64.sh
+   61  conda init
+   62  init
+   63  conda init
+   64  conda env list
+   65  conda create -n bm
+   66  conda create -n
+   67  conda create -n bm
+   68  conda env list
+   69  conda activate bm
+   70  conda list
+   71  conda deactivate
+   72  conda create -n legacy_projects
+   73  conda install numpy=1.16 pandas=0.24
+   74  conda env list
+   75  conda list
+   76  conda activate legacy_projects
+   77  conda install numpy=1.16 pandas=0.24
+   78  pip install biopython==1.73
+   79  conda list
+   80  conda env export --from-history > environment.yml
+   81  conda env create -f "C:\Users\trety\Downloads\environment_full.yml"
+   82  conda env create -f /mnt/c/Users/trety/Downloads/environment_full.yml
+   83  conda activate my_project
+   84  conda env list
+   85  conda list
+   86  conda list | grep numpy
+   87  conda list | grep biopython
+   88  conda list | grep pandas
+   89  nano my_first_script.txt
+   90  nano  my_first_script.txt
+   91  nano my_first_script.txt
+   92  bash my_first_script.txt
+   93  nano  my_first_script.txt
+   94  bash my_first_script.txt
+   95  nano  my_first_script.txt
+   96  bash my_first_script.txt
+   97  nano  my_first_script.txt
+   98  bash my_first_script.txt
+   99  nano  my_first_script.txt
+  100  bash my_first_script.txt
+  101  conda deactivate
+  102  bash my_first_script.txt
+  103  nano  my_first_script.txt
+  104  conda activate my_project
+  105  bash my_first_script.txt
+  106  conda activate my_project
+  107  conda install jupyter ipykernel -y
+  108  python -m ipykernel install --user --name=my_project --display-name="Python (my_project)"
+  109  jupyter notebook
+  110  git --version
+  111  git config --global --list | grep -E 'user.name|user.email'
+  112  git config --global user.name "юля третьякова"
+  113  git config --global user.email "tretjulia@yandex.ru"
+  114  git config --global --list | grep -E 'юля третьякова|tretjulia@yandex.ru'
+  115  git config --global --list | grep -E 'user.name|user.email'
+  116  gh --version
+  117  sudo apt update
+  118  sudo apt install -y gh
+  119  gh --version
+  120  gh auth login
+  121  gh auth status
+  122  cd ~
+  123  gh repo create bioinformatics_hw --public --clone
+  124  cd bioinformatics_hw_julia
+  125  pwd
+  126  ls -la
+  127  pwd
+  128  ls -la
+  129  cd ~
+  130  ls
+  131  cd ~/bioinformatics_hw
+  132  pwd
+  133  ls -la
+  134  git status
+  135  git remote -v
+  136  cat > README.md <<'EOF'
+# Bioinformatics HW
+
+Задание 1 (Linux и Git). Третьякова Юля Б06-303
+EOF
+
+  137  cat README.md
+  138  git add README.md
+  139  git commit -m "Init"
+  140  git branch -M main
+  141  git push -u origin main
+  142  git status
+  143  git log --oneline --decorate -5
+  144  git remote -v
+  145  cd ~/bioinformatics_hw
+  146  mkdir -p linux_task/data/raw
+  147  ls -R linux_task
+  148  cd linux_task/data/rawpwd
+  149  touch sample1.tsv sample2.tsv sample3.tsv
+  150  ls -la
+  151  cd ~/bioinformatics_hw/linux_task/data/raw
+  152  pwd
+  153  cd ~/bioinformatics_hw
+  154  mv sample1.tsv sample2.tsv sample3.tsv linux_task/data/raw/
+  155  cd linux_task/data/rawls -la
+  156  cd ~/bioinformatics_hw/linux_task/data/raw
+  157  ls -la
+  158  printf "GeneID\tExpression_Value\n" > sample1.tsv
+  159  cat sample1.tsv
+  160  cat -A sample1.tsv
+  161  cd ~/bioinformatics_hw
+  162  git status
+  163  git add linux_task
+  164  git commit -m "Create raw data structure"
+  165  git push
+  166* cd ~/bioinformatics_hw
+
+cat >> README.md <<'EOF'
+
+## Пояснение к заданиюЗадание 1: практикум по Linux CLI и Git/GitHub — создание репозитория, работа с файлами/папками, поиск и перенаправление, восстановление удалённых файлов через Git, фиксация истории команд.
+EOF
+  167  cd ~/bioinformatics_hw
+  168  cat >> README.md <<'EOF'
+
+Задание 1: практикум по Linux CLI и Git/GitHub — создание репозитория, работа с файлами/папками, поиск и перенаправление, восстановление удалённых файлов через Git, фиксация истории команд.
+EOF
+
+  169  cd ~/bioinformatics_hw
+  170  tail -n 20 README.md
+  171  cd ~/bioinformatics_hw
+  172  nano README.md
+  173  cd ~/bioinformatics_hw
+  174  grep -v '^Задание 1 \(Linux и Git\)\.' README.md > README.tmp && mv README.tmp README.md
+  175  cat README.md
+  176  cd ~/bioinformatics_hw
+  177  grep -v '^Задание 1 \(Linux и Git\)\.' README.md > README.tmp && mv README.tmp README.md
+  178  cat README.md
+  179  cd ~/bioinformatics_hw
+  180  sed -i 's/^Задание 1: /Описание: /' README.md
+  181  cat README.md
+  182  git add README.md
+  183  git commit -m "Fix README"
+  184  git push
+  185  cd ~/bioinformatics_hw
+  186  git log --oneline --decorate -5
+  187  cd ~/bioinformatics_hw/linux_task/data/raw
+  188  pwd
+  189  cat > sequencing_summary.txt <<'EOF'
+run_id: RUN001
+date: 2026-02-18
+sample: sample1
+platform: Illumina
+read_length: 150
+total_reads: 1024
+sample: sample2
+total_reads: 2048
+sample: sample3
+total_reads: 4096
+EOF
+
+  190  cat sequencing_summary.txt
+  191  grep "sample" sequencing_summary.txt > samples_list.txt
+  192  cat samples_list.txt
+  193  wc -l samples_list.txt
+  194  echo "Total samples found: $(wc -l < samples_list.txt)" >> samples_list.txt
+  195  tail -n 5 samples_list.txt
+  196  cd ~/bioinformatics_hw
+  197  git add linux_task/data/raw/sequencing_summary.txt linux_task/data/raw/samples_list.txt
+  198  git commit -m "Add sample list and count"
+  199  git push
+  200  git log --oneline --decorate -7
+  201  cd ~/bioinformatics_hw
+  202  git checkout -b git-practice
+  203  git branch --show-current
+  204  echo "This is very important data." > important_note.txt
+  205  cat important_note.txt
+  206  git add important_note.txt
+  207  git commit -m "Add important note"
+  208  rm important_note.txt
+  209  ls -la | grep important_note || echo "file not found"
+  210  git status
+  211  git restore important_note.txt
+  212  ls -la | grep important_note
+  213  cat important_note.txt
+  214  git status
+  215  echo "git restore important_note.txt" > git_command.txt
+  216  cat git_command.txt
+  217  git add git_command.txt
+  218  git commit -m "Restore deleted file"
+  219  git log --oneline --decorate -5
+  220  git push -u origin git-practice
+  221  git branch -vv
+  222  history > command_history.txt
+  223  history | tail -n 500 > command_history.txt
