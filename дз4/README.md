@@ -85,7 +85,7 @@ grep "Start Velvet\|Final graph\|Finish Velvet" genome_assembly_results/logs/vel
 
 ### Результат SPAdes
 
-Файл `contigs.fasta` был создан в папке `genome_assembly_results/spades_old`. В логе были предупреждения, но они не остановили сборку, поэтому результат можно использовать для сравнения.
+Файл `contigs.fasta` был создан в папке `genome_assembly_results/spades_old`.
 
 ### Скрипт запуска QUAST
 
