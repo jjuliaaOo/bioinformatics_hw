@@ -119,7 +119,7 @@ cat genome_assembly_results/quast_part2_min1/report.txt
 
 <p align="center"><em>Рисунок 7. Таблица QUAST из report.html (part2).</em></p>
 
-### Вывод по сравнению
+### Вывод по QUAST
 
 Среди Velvet-сборок лучше всего выглядит `velvet_k31`: у нее меньше контигов, выше N50 и больше largest contig, чем у `velvet_k11` и `velvet_k21`.
 
@@ -155,21 +155,11 @@ quast.py velvet_old_k31 velvet_new_k31 spades_old spades_new --min-contig 1
 
 По первой попытке стало видно, что простое изменение параметров не дало как такового улучшения. `velvet_new_k31` по основным метрикам практически совпал со старым Velvet k31, а новая сборка SPAdes стала более фрагментированной, чем исходная SPAdes-сборка. Поэтому я решила попробовать другое улучшение.
 
-| Метрика | velvet_old_k31 | velvet_new_k31 | spades_old | spades_new |
-|---|---:|---:|---:|---:|
-| # contigs | 543 | 543 | 49 | 274 |
-| Largest contig | 414 | 414 | 1069 | 882 |
-| Total length | 52070 | 52070 | 15064 | 33662 |
-| N50 | 104 | 104 | 440 | 110 |
-| L50 | 186 | 186 | 12 | 70 |
-| L90 | 458 | 458 | 37 | 217 |
-| GC (%) | 47.87 | 47.87 | 45.47 | 47.52 |
-
 ### Вторая попытка улучшения v2
 
 Во второй попытке идея была такая: сначала SPAdes в режиме `--careful` исправляет ошибки в ридах и сохраняет исправленные файлы в папку `corrected`. Затем эти исправленные paired-end риды были поданы на вход Velvet.
 
-Это может помочь, потому что ошибки секвенирования создают лишние k-mer и усложняют граф сборки. Если сначала исправить риды, то у Velvet граф может стать менее шумным.
+Это может помочь, потому что ошибки секвенирования создают лишние k-mer и усложняют граф сборки. Если сначала исправить риды, то у Velvet граф может стать менее шумным и без лишних ветвлений.
 
 Также была сделана отдельная сборка SPAdes с параметром `--isolate`. Я использовала этот режим как ещё один вариант улучшения, чтобы проверить, получится ли сборка менее раздробленной.
 
@@ -189,7 +179,7 @@ quast.py velvet_old_k31 velvet_new_k31 spades_old spades_new --min-contig 1
 
 <p align="center"><em>Рисунок 9. Скрипт run_spades_isolate.sh для новой SPAdes-сборки в режиме --isolate.</em></p>
 
-### Финальный QUAST для части 3
+### Финальный QUAST
 
 После выполнения новых сборок был запущен финальный QUAST. В него были переданы четыре сборки:
 
@@ -200,7 +190,7 @@ quast.py velvet_old_k31 velvet_new_k31 spades_old spades_new --min-contig 1
 
 Использовался параметр `--min-contig 1`, как и во второй части, чтобы короткие Velvet-контиги тоже отображались в сравнении.
 
-### Скрипт запуска QUAST для части 3
+### Скрипт запуска QUAST (part3)
 
 <p align="center">
   <img src="assets/fig10_quast_part3_script.png" alt="Скрипт run_quast_part3_v2.sh" width="900">
@@ -208,21 +198,7 @@ quast.py velvet_old_k31 velvet_new_k31 spades_old spades_new --min-contig 1
 
 <p align="center"><em>Рисунок 10. Скрипт run_quast_part3_v2.sh для финального сравнения четырёх сборок.</em></p>
 
-Команды запуска и проверки финального QUAST:
-
-```bash
-sbatch scripts/run_quast_part3_v2.sh
-sacct -j 67384 --format=JobID,JobName,State,ExitCode,Elapsed
-ls -lh genome_assembly_results/quast_part3_v2
-vim genome_assembly_results/quast_part3_v2/report.txt
-```
-В папке `quast_part3_v2` были созданы `report.html`, `report.txt`, `report.pdf` и другие файлы отчета.
-
-<p align="center">
-  <img src="assets/fig11_quast_part3_status_files.png" alt="Проверка статуса финального QUAST" width="900">
-</p>
-
-<p align="center"><em>Рисунок 11. Проверка статуса финального QUAST и созданных файлов отчета.</em></p>
+Команды запуска и проверки QUAST были такими же как в части 2.
 
 ### Результаты QUAST для финального сравнения
 
@@ -231,18 +207,6 @@ vim genome_assembly_results/quast_part3_v2/report.txt
 </p>
 
 <p align="center"><em>Рисунок 12. Таблица QUAST из report.html (part3) для старых и новых сборок.</em></p>
-
-| Метрика | velvet_old_k31 | velvet_corrected_k31 | spades_old | spades_isolate |
-|---|---:|---:|---:|---:|
-| # contigs | 543 | 166 | 49 | 42 |
-| Largest contig | 414 | 421 | 1069 | 1062 |
-| Total length | 52070 | 20560 | 15064 | 13799 |
-| N50 | 104 | 139 | 440 | 387 |
-| N90 | 61 | 67 | 148 | 150 |
-| auN | 114.4 | 151.5 | 484.1 | 491.3 |
-| L50 | 186 | 55 | 12 | 11 |
-| L90 | 458 | 134 | 37 | 32 |
-| GC (%) | 47.87 | 47.87 | 45.47 | 45.04 |
 
 ### Анализ результатов части 3
 
