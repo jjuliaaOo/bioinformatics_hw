@@ -119,19 +119,6 @@ cat genome_assembly_results/quast_part2_min1/report.txt
 
 <p align="center"><em>Рисунок 7. Таблица QUAST из report.html (part2).</em></p>
 
-### Основные метрики QUAST
-
-| Метрика | velvet_k11 | velvet_k21 | velvet_k31 | spades_old |
-|---|---:|---:|---:|---:|
-| # contigs | 3075 | 2058 | 543 | 49 |
-| Largest contig | 63 | 253 | 414 | 1069 |
-| Total length | 79055 | 133845 | 52070 | 15064 |
-| N50 | 25 | 67 | 104 | 440 |
-| N90 | 21 | 41 | 61 | 148 |
-| L50 | 1305 | 701 | 186 | 12 |
-| L90 | 2699 | 1732 | 458 | 37 |
-| GC (%) | 49.49 | 47.32 | 47.87 | 45.47 |
-
 ### Вывод по сравнению
 
 Среди Velvet-сборок лучше всего выглядит `velvet_k31`: у нее меньше контигов, выше N50 и больше largest contig, чем у `velvet_k11` и `velvet_k21`.
