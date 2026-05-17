@@ -6,14 +6,14 @@
 
 ## Часть 1 — Анализ FastQC до тримминга
 
-В первой части были взяты два исходных FASTQ-файла:
+Была создана отдельная conda-среда `hw6_qc`, куда были установлены `fastqc`, `multiqc` и `fastp`. В первой части были взяты два исходных FASTQ-файла:
 
 ```text
 /home/STUDY/FBMF/bioinformatics/rnaseq_map_star/raw_data/Eg_Treg_S71_R1_001.fastq.gz
 /home/STUDY/FBMF/bioinformatics/rnaseq_map_star/raw_data/Eg_Treg_S71_R2_001.fastq.gz
 ```
 
-Для них был запущен FastQC, после чего результаты были объединены в общий отчёт MultiQC. Еще была создана отдельная conda-среда `hw6_qc`, куда были установлены `fastqc`, `multiqc` и `fastp`.
+Для них был запущен FastQC, после чего результаты были объединены в общий отчёт MultiQC.
 
 ### Скрипт FastQC + MultiQC для исходных данных
 
