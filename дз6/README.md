@@ -236,23 +236,9 @@ __alignment_not_unique    1066155
 
 Нужно было сравнить каунты из STAR-файла с каунтами HTSeq-count.
 
-Для STAR бралась **колонка 3** из `RNA_ReadsPerGene.out.tab`. Затем были оставлены только общие gene_id и создана таблица: star_vs_htseq_counts.tsv.
+Для сравнения результатов подсчёта был написан Python-скрипт, который считывал два файла: `RNA_ReadsPerGene.out.tab` от STAR и `htseq_counts.txt` от HTSeq-count. Из STAR бралась 3-я колонка с каунтами, а из HTSeq — значения каунтов по тем же `gene_id`. Скрипт убирал служебные строки вроде `N_unmapped` и `__no_feature`, находил общие гены в двух таблицах и сохранял итоговую таблицу сравнения.
 
-В результате получилось:
-
-```text
-STAR genes: 62700
-HTSeq genes: 62700
-Common genes: 62700
-```
-
-То есть списки генов полностью совпали: **62 700 общих генов**.
-
-<p align="center">
-  <img src="assets/count_compare_terminal.png" alt="Сравнение STAR и HTSeq в терминале" width="700">
-</p>
-
-<p align="center"><em>Рисунок 19. Создание таблицы сравнения STAR и HTSeq-count.</em></p>
+В результате получилось, что списки генов полностью совпали: в STAR было 62700 генов, в HTSeq-count тоже 62700 генов, и все **62700 генов оказались общими**, то есть дальше мы можем корректно сравнивать численные значения каунтов между двумя методами.
 
 ### Scatter plot
 
@@ -262,7 +248,7 @@ Common genes: 62700
   <img src="assets/star_vs_htseq_scatter.png" alt="STAR GeneCounts vs HTSeq-count" width="700">
 </p>
 
-<p align="center"><em>Рисунок 20. Scatter plot: STAR GeneCounts vs HTSeq-count.</em></p>
+<p align="center"><em>Рисунок 16. Scatter plot: STAR GeneCounts vs HTSeq-count.</em></p>
 
 Корреляция получилась такая:
 
@@ -275,7 +261,7 @@ Pearson correlation, log10(count + 1): 0.951304
 
 ### Почему результаты STAR и HTSeq могут не совпадать
 
-STAR GeneCounts и HTSeq-count могут давать не одинаковые числа:
+STAR GeneCounts и HTSeq-count могут давать не одинаковые числа, т.к.:
 
 - они используют разные правила назначения рида гену;
 - по-разному обрабатывают неоднозначные выравнивания;
@@ -295,13 +281,13 @@ STAR GeneCounts и HTSeq-count могут давать не одинаковые
   <img src="assets/server_files_1.png" alt="Файлы домашнего задания на сервере, часть 1" width="700">
 </p>
 
-<p align="center"><em>Рисунок 21. Итоговая папка hw6 на сервере 1.</em></p>
+<p align="center"><em>Рисунок 17. Итоговая папка hw6 на сервере 1.</em></p>
 
 <p align="center">
   <img src="assets/server_files_2.png" alt="Файлы домашнего задания на сервере, часть 2" width="700">
 </p>
 
-<p align="center"><em>Рисунок 22. Итоговая папка hw6 на сервере 2.</em></p>
+<p align="center"><em>Рисунок 18. Итоговая папка hw6 на сервере 2.</em></p>
 
 ---
 
