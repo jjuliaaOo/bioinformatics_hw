@@ -15,13 +15,6 @@
 
 Для них был запущен FastQC, после чего результаты были объединены в общий отчёт MultiQC.
 
-### Скрипт FastQC + MultiQC для исходных данных
-
-<p align="center">
-  <img src="assets/scripts 01.jpg" alt="script01" width="700">
-</p>
-
-
 ### HTML-report. Общая статистика до тримминга
 
 MultiQC показывает два образца: `Eg_Treg_S71_R1_001` и `Eg_Treg_S71_R2_001`. В каждом файле примерно по **19.8 млн ридов**. GC-состав близкий: **45.0%** для R1 и **46.0%** для R2. Дупликация составляет **27.7%** для R1 и **21.2%** для R2.
@@ -78,17 +71,7 @@ GC-состав отмечен как проблемный пункт в кон�
 
 ## Часть 2 – Тримминг fastp
 
-Во второй части был выполнен тримминг через fastp для автоматического поиска адаптеров, отрезания участков низкого качества и отбрасывания слишком коротких ридов.
-
-### Скрипт fastp + FastQC + MultiQC после тримминга
-
-<p align="center">
-  <img src="assets/scripts 02.jpg" alt="script02" width="700">
-</p>
-
-<p align="center">
-  <img src="assets/scripts 022.jpg" alt="script022" width="700">
-</p>
+Во второй части был выполнен тримминг через fastp для автоматического поиска адаптеров, отрезания участков низкого качества и отбрасывания слишком коротких ридов. После тримминга FastQC и MultiQC запускались повторно для проверки качества уже очищенных ридов.
 
 ### Результат fastp
 
@@ -199,11 +182,7 @@ GC-состав после обработки остался примерно т
 
 В папке bioinformatics/GRCh38 были найдены основные файлы STAR: `Genome`, `SA`, `SAindex`, `chrName.txt`, `chrLength.txt`, `chrStart.txt`, а также GTF-файл `Homo_sapiens.GRCh38.110.chr.gtf`.
 
-### Скрипт STAR
-
-<p align="center">
-  <img src="assets/scripts 03.jpg" alt="script03" width="700">
-</p>
+В скрипте STAR триммированные paired-end риды выравнивались на референсный геном GRCh38 с помощью STAR. На вход подавались очищенные файлы из `trimmed_data`, а STAR создавал отсортированный BAM-файл `RNA_Aligned.sortedByCoord.out.bam`, файл со статистикой выравнивания `RNA_Log.final.out`, таблицу сплайс-соединений `RNA_SJ.out.tab` и таблицу подсчёта ридов по генам `RNA_ReadsPerGene.out.tab`. Дополнительно был включён режим `GeneCounts`, чтобы сразу получить каунты STAR для дальнейшего сравнения с HTSeq-count.
 
 ### Результаты STAR
 
@@ -213,57 +192,29 @@ GC-состав после обработки остался примерно т
 
 <p align="center"><em>Рисунок 15. Финальная статистика STAR.</em></p>
 
-Уникальное выравнивание **83.53%** – хороший результат для RNA-seq данных. Основная категория невыравненных ридов – `too short`, около **10.26%**.
+Уникальное выравнивание **83.53%** для RNA-seq данных можно считать хорошим результатом. Основная категория невыравненных ридов – `too short`, около **10.26%**.
 
 ### Сборка транскриптов StringTie
 
-StringTie был запущен на BAM-файле, полученном после STAR. Нужно было получить собственную модель транскриптов, поэтому StringTie был запущен без `-G`, то есть в режиме de novo.
-
-### Скрипт StringTie
-
-<p align="center">
-  <img src="assets/scripts 04.jpg" alt="script04" width="700">
-</p>
+StringTie был запущен на BAM-файле, полученном после STAR. Нужно было получить собственную модель транскриптов, поэтому StringTie был запущен без `-G`, то есть в режиме de novo, программа сама восстанавливала возможные транскрипты по выровненным ридам.
 
 ### Результат StringTie
 
 StringTie успешно создал файл transcripts.gtf, размер файла составил около **25M**.
 
-<p align="center">
-  <img src="assets/stringtie_result.png" alt="StringTie result" width="700">
-</p>
-
-<p align="center"><em>Рисунок 16. Завершение StringTie и создание transcripts.gtf.</em></p>
-
 Первые строки GTF показывают стандартную структуру файла: chromosome, source, feature type, start, end, score, strand, frame, attributes. В attributes указаны `gene_id`, `transcript_id`, `cov`, `FPKM`, `TPM`.
-
-<p align="center">
-  <img src="assets/stringtie_gtf_head.png" alt="Первые строки GTF StringTie" width="700">
-</p>
-
-<p align="center"><em>Рисунок 17. Первые строки файла transcripts.gtf и подсчёт транскриптов.</em></p>
 
 Количество собранных транскриптов было посчитано по строкам с feature type `transcript`. StringTie собрал **9727 транскриптов**.
 
-## Часть 6 — Подсчёт генов через HTSeq-count
+### Подсчёт генов через HTSeq-count
 
 Для HTSeq-count использовался отсортированный BAM от STAR и GRCh38.
 
-### Скрипт HTSeq-count
-
-<p align="center">
-  <img src="assets/scripts 04.jpg" alt="script04" width="700">
-</p>
+В скрипте HTSeq-count запускался подсчёт ридов по генам на основе BAM-файла, полученного после STAR. На вход подавались отсортированный BAM-файл и аннотация генома GRCh38 в формате GTF. Подсчёт выполнялся по экзонам с группировкой по `gene_id`, для paired-end данных использовался режим `--stranded=no`. Результат был сохранён в файл, где для каждого гена указано число назначенных ему ридов.
 
 ### Результат HTSeq-count
 
 В логе было предупреждение о **276 mate records missing**, но на фоне примерно **16.88 млн** обработанных пар это небольшое предупреждение, и подсчёт завершился нормально.
-
-<p align="center">
-  <img src="assets/htseq_result.png" alt="HTSeq result" width="700">
-</p>
-
-<p align="center"><em>Рисунок 18. Результат HTSeq-count и первые строки htseq_counts.txt.</em></p>
 
 Количество генов в `htseq_counts.txt` без служебных строк `__...`: 62700.
 
@@ -281,7 +232,7 @@ __alignment_not_unique    1066155
 
 ---
 
-## Часть 7 — Сравнение STAR GeneCounts и HTSeq-count
+## Сравнение STAR GeneCounts и HTSeq-count
 
 Нужно было сравнить каунты из STAR-файла с каунтами HTSeq-count.
 
